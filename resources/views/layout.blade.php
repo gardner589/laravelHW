@@ -62,6 +62,10 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            table {
+              width: 60vw;
+              margin: auto;
+            }
             tr:nth-child(even) {
               background-color: #dddddd;
             }

@@ -16,7 +16,7 @@ class CreateEOSRequestsTable extends Migration
         Schema::create('eos_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('project_id')->unsigned()->index();
+            $table->integer('project_id')->index();
             $table->string('user_id')->index();
             $table->text('description');
             $table->integer('dimX');
@@ -32,6 +32,7 @@ class CreateEOSRequestsTable extends Migration
             $table->integer('status')->nullable();
             $table->text('admin_notes');
             $table->date('completion_date')->nullable();
+            $table->string('stl')->nullable();
             $table->timestamps();
         });
     }

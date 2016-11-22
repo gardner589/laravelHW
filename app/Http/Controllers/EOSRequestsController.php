@@ -11,9 +11,9 @@ class EOSRequestsController extends Controller
     public function index()
     {
 
-      $requests = EOSRequest::all();
+      $eosrequests = EOSRequest::all();
 
-      return view('requests.index', compact('requests'));
+      return view('requests.index', compact('eosrequests'));
 
     }
 
@@ -29,15 +29,29 @@ class EOSRequestsController extends Controller
 
     public function store(Request $request)
     {
+      // Make some dummy data for fields not filled
       $faker = \Faker\Factory::create();
 
       $request['needed_by'] = $faker->dateTimeThisDecade($max = 'now');
-      $request['status'] = rand(0,3);
+      $request['status'] = 0;
+      $request['project_id'] = $faker->randomDigit;
+      $request['user_id'] = $faker->uuid;
+      $request['completion_date'] = $faker->dateTimeThisDecade($max = 'now');
 
+      // Get uploaded file info
+      if($request->file('stl'))
+      {
+        request()->file('stl')->store('stlFiles');
+        $thisRequest = EOSRequest::find($request['id']);
+        $thisRequest['stl'] = $request->file('stl')->path();
+      }
+      // Turn request object to array ... idk why I have to do this..
       EOSRequest::create($request->toArray());
 
-      return view('requests.index');
-      // return $request->description;
+      // Get all EOSRquests.. again
+      $eosrequests = EOSRequest::all();
+
+      return view('requests.index', compact('eosrequests'));
     }
 
 }

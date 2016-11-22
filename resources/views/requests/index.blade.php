@@ -12,7 +12,7 @@
       <br>
       <br>
       <br>
-      <table style="width: 60vw; margin: auto;">
+      <table>
           <tr>
             <th>
               Name
@@ -27,10 +27,13 @@
               Admin Notes
             </th>
             <th>
+               STL File
+            </th>
+            <th>
               Status
             </th>
           </tr>
-      @foreach($requests as $request)
+      @foreach($eosrequests as $request)
           <tr>
               <td class="links">
                 <a href="/requests/{{$request->id}}">
@@ -45,6 +48,9 @@
               </td>
               <td>
                 {{ $request->admin_notes}}
+              </td>
+              <td>
+                {{ $request->stl}}
               </td>
               <td>
                 @if($request->status === 0)
